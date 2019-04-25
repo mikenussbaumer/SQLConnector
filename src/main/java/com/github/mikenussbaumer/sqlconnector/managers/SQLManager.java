@@ -32,15 +32,15 @@ public class SQLManager {
     //<editor-fold desc="connect">
     public void connect ( String driverName ) {
         try {
-            String uri = MessageFormat.format ( "{0}://{1}:{2}/{3}", driverName, hostname, port, database );
+            String uri = MessageFormat.format( "{0}://{1}:{2}/{3}", driverName, hostname, String.valueOf( port ), database );
 
-            this.connection = DriverManager.getConnection ( uri, username, password );
+            this.connection = DriverManager.getConnection( uri, username, password );
 
-            if ( !this.connection.isClosed ( ) && connection != null ) {
-                System.out.println ( "[SQLManager] Successfully connected to Database: " + uri );
+            if ( !this.connection.isClosed( ) && connection != null ) {
+                System.out.println( "[SQLManager] Successfully connected to Database: " + uri );
             }
         } catch ( SQLException error ) {
-            System.err.println ( "[SQLManager] Can't connect to Database: " + error.getMessage ( ) );
+            System.err.println( "[SQLManager] Can't connect to Database: " + error.getMessage( ) );
         }
     }
     //</editor-fold>
@@ -48,17 +48,17 @@ public class SQLManager {
     //<editor-fold desc="close">
     public void close ( ) {
         try {
-            if ( !connection.isClosed ( ) && connection != null ) {
-                connection.close ( );
+            if ( !connection.isClosed( ) && connection != null ) {
+                connection.close( );
 
-                if ( connection.isClosed ( ) ) {
-                    System.out.println ( "[SQLManager] Connection successfully closed." );
+                if ( connection.isClosed( ) ) {
+                    System.out.println( "[SQLManager] Connection successfully closed." );
                 } else {
-                    System.err.println ( "[SQLManager] Can't close the mysql connection" );
+                    System.err.println( "[SQLManager] Can't close the mysql connection" );
                 }
             }
         } catch ( SQLException error ) {
-            System.err.println ( "[SQLManager] Can't close the mysql connection: " + error.getMessage ( ) );
+            System.err.println( "[SQLManager] Can't close the mysql connection: " + error.getMessage( ) );
         }
     }
     //</editor-fold>
@@ -66,10 +66,10 @@ public class SQLManager {
     //<editor-fold desc="update">
     public void update ( String query ) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement ( query );
-            preparedStatement.executeUpdate ( );
+            PreparedStatement preparedStatement = connection.prepareStatement( query );
+            preparedStatement.executeUpdate( );
         } catch ( SQLException error ) {
-            System.err.println ( "[SQLManager] Update error: " + error.getMessage ( ) );
+            System.err.println( "[SQLManager] Update error: " + error.getMessage( ) );
         }
     }
     //</editor-fold>@@ﬂﬂﬂ@
@@ -77,7 +77,7 @@ public class SQLManager {
     //<editor-fold desc="multiUpdate">
     public void multiUpdate ( String... multiquery ) {
         for ( String query : multiquery ) {
-            this.update ( query );
+            this.update( query );
         }
     }
     //</editor-fold>
@@ -86,10 +86,10 @@ public class SQLManager {
     public ResultSet query ( String query ) {
         ResultSet resultSet = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement ( query );
-            resultSet = preparedStatement.executeQuery ( );
+            PreparedStatement preparedStatement = connection.prepareStatement( query );
+            resultSet = preparedStatement.executeQuery( );
         } catch ( SQLException error ) {
-            System.err.println ( "[SQLManager] Query error: " + error.getMessage ( ) );
+            System.err.println( "[SQLManager] Query error: " + error.getMessage( ) );
         }
         return resultSet;
     }

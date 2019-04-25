@@ -15,7 +15,7 @@ import lombok.*;
 @Setter
 public class User {
 
-    private String id;
+    private int id;
 
     private String firstName;
 

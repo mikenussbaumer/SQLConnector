@@ -1,6 +1,7 @@
 package com.github.mikenussbaumer.sqlconnector.interfaces;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Mike Nußbaumer (dev@mike-nussbaume.rcom)
@@ -10,9 +11,9 @@ import java.util.List;
  */
 public interface DAO< T > {
 
-    T get ( long id );
+    void get ( int id, Consumer<T> consumer );
 
-    List < T > getAll ( );
+    void getAll ( Consumer<List<T>> consumer );
 
     void save ( T t );
 

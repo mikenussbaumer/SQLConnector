@@ -1,6 +1,7 @@
 package com.github.mikenussbaumer.sqlconnector;
 
 import com.github.mikenussbaumer.sqlconnector.managers.SQLManager;
+import com.github.mikenussbaumer.sqlconnector.models.UserModel;
 
 public class Main {
 
@@ -12,9 +13,14 @@ public class Main {
 
     //<editor-fold desc="init">
     private static void init ( ) {
-        sqlManager = new SQLManager( "localhost", "sa", "", "opt/h2-data/test", 1521 );
+        sqlManager = new SQLManager( "localhost", "sa", "", "test", 1521 );
         sqlManager.connect( "jdbc:h2:tcp" );
 
+        UserModel userModel = new UserModel( sqlManager );
+
+        userModel.get( 1, user -> System.out.println( user.toString() ) );
+
+        userModel.getAll( users -> System.out.println( users.toString() ) );
 
     }
     //</editor-fold>

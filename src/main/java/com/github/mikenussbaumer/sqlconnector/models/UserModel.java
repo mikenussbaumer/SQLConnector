@@ -24,6 +24,11 @@ public class UserModel implements DAO < User > {
         this.sqlManager = sqlManager;
     }
 
+    /**
+     * Get a specific user from the database by id
+     * @param id
+     * @param consumer
+     */
     @Override
     public void get ( int id, Consumer < User > consumer ) {
         try {
@@ -48,6 +53,10 @@ public class UserModel implements DAO < User > {
         }
     }
 
+    /**
+     * Get all users from the database
+     * @param consumer
+     */
     @Override
     public void getAll ( Consumer < List < User > > consumer ) {
         try {
@@ -71,18 +80,38 @@ public class UserModel implements DAO < User > {
         }
     }
 
+    /**
+     * Insert a user into the database
+     * @param user
+     */
     @Override
-    public void save ( User user ) {
-
+    public void create ( User user ) {
+        String query = "INSERT INTO `USERS` (`firstName`, `lastName`, `password`, `phone`, `address`) VALUES (" +
+                "'" + user.getFirstName( ) + "', " +
+                "'" + user.getLastName( ) + "', " +
+                "'" + user.getPassword( ) + "', " +
+                "'" + user.getPhone( ) + "', " +
+                "'" + user.getAddress( ) + "');";
+        sqlManager.update( query );
     }
 
+    /**
+     * Update a specific user in the database
+     * @param user
+     * @param params
+     */
     @Override
     public void update ( User user, String[] params ) {
 
     }
 
+    /**
+     * Delete a specific user in the database by id
+     * @param id
+     */
     @Override
-    public void delete ( User user ) {
-
+    public void delete ( String id ) {
+        String query = "DELETE FROM `USERS` WHERE `id`='" + id + "'";
+        sqlManager.update( query );
     }
 }

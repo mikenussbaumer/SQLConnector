@@ -15,10 +15,10 @@ public interface DAO< T > {
 
     void getAll ( Consumer<List<T>> consumer );
 
-    void save ( T t );
+    void create ( T t );
 
     void update ( T t, String[] params );
 
-    void delete ( T t );
+    void delete ( String id );
 
 }

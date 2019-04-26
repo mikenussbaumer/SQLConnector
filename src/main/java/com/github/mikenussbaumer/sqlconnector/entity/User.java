@@ -10,21 +10,33 @@ import lombok.*;
  */
 @ToString ( includeFieldNames = true )
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class User {
 
+    @Getter
     private int id;
 
+    @Getter
     private String firstName;
 
+    @Getter
     private String lastName;
 
     private String password;
 
+    @Getter
     private String phone;
 
+    @Getter
     private String address;
 
+    public User ( int id, String firstName, String lastName, String password, String phone, String address ) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+    }
 }

@@ -37,12 +37,15 @@ public class Main {
         userModel.create( new User( 0, "Ha", "Lo", "Paswd", "phone", "add" ) );
 
         userModel.delete( "1" );
-
     }
     //</editor-fold>
 
 
     public static DatabaseConfig getDatabaseConfig ( ) {
         return databaseConfig.getSettings( );
+    }
+
+    public static SQLManager getSqlManager ( ) {
+        return sqlManager;
     }
 }

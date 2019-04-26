@@ -75,6 +75,7 @@ public class UserModel implements DAO < User > {
 
             consumer.accept( result );
             resultSet.close( );
+
         } catch ( SQLException error ) {
             error.printStackTrace( );
         }

@@ -19,7 +19,7 @@ public class Main {
 
     //<editor-fold desc="init">
     private static void init ( ) {
-        databaseConfig = new ConfigManager <>( new File( "databaseconfig.json" ), DatabaseConfig.class );
+        databaseConfig = new ConfigManager <>( new File( "databaseConfig.json" ), DatabaseConfig.class );
 
         sqlManager = new SQLManager(
                 getDatabaseConfig().getHostname(),

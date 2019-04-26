@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.sql.*;
 import java.text.MessageFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author Mike Nußbaumer (dev@mike-nussbaume.rcom)
@@ -20,6 +22,7 @@ public class SQLManager {
     private int port;
 
     private Connection connection;
+    private static ExecutorService executorService = Executors.newCachedThreadPool( );
 
     public SQLManager ( String hostname, String username, String password, String database, int port ) {
         this.hostname = hostname;
@@ -50,6 +53,7 @@ public class SQLManager {
         try {
             if ( !connection.isClosed( ) && connection != null ) {
                 connection.close( );
+                executorService.shutdown( );
 
                 if ( connection.isClosed( ) ) {
                     System.out.println( "[SQLManager] Connection successfully closed." );
@@ -68,6 +72,7 @@ public class SQLManager {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( query );
             preparedStatement.executeUpdate( );
+            closePreparedStatement( preparedStatement );
         } catch ( SQLException error ) {
             System.err.println( "[SQLManager] Update error: " + error.getMessage( ) );
         }
@@ -88,10 +93,25 @@ public class SQLManager {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( query );
             resultSet = preparedStatement.executeQuery( );
+            closePreparedStatement( preparedStatement );
         } catch ( SQLException error ) {
             System.err.println( "[SQLManager] Query error: " + error.getMessage( ) );
         }
         return resultSet;
     }
     //</editor-fold>
+
+    private void closePreparedStatement ( PreparedStatement preparedStatement ) {
+        executorService.execute( new Runnable( ) {
+            @Override
+            public void run ( ) {
+                try {
+                    Thread.sleep( 20000 );
+                    preparedStatement.close( );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
+            }
+        } );
+    }
 }

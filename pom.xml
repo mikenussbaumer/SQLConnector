@@ -6,7 +6,21 @@
 
     <groupId>com.github.mikenussbaumer.sqlconnector</groupId>
     <artifactId>SQL-Connector</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.4</version>
+    <packaging>jar</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>maven-releases</name>
+            <url>https://repo.mike-nussbaumer.com/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>maven-snapshots</name>
+            <url>https://repo.mike-nussbaumer.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -48,7 +62,27 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>LATEST</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>LATEST</version>
+            </plugin>
         </plugins>
     </build>
+
+
 
 </project>
